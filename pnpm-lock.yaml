@@ -29,6 +29,9 @@ importers:
       simple-json-db:
         specifier: ^2.0.0
         version: 2.0.0
+      zod:
+        specifier: ^4.0.5
+        version: 4.0.5
 
 packages:
 
@@ -258,6 +261,9 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
 snapshots:
 
@@ -495,3 +501,5 @@ snapshots:
   universalify@0.1.2: {}
 
   ws@8.18.3: {}
+
+  zod@4.0.5: {}

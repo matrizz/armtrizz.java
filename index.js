@@ -1,9 +1,14 @@
 const Discord = require("discord.js")
-require('dotenv').config()
-const db = require('./lib/utils/db.js')
+const { envSchema } = require("./schema/env");
+const fs = require('fs');
 
+const _env = envSchema.parse(process.env)
 
-console.log()
+if (!_env) {
+  console.error("❌ Variáveis de ambiente inválidas:", _env.error.format())
+  process.exit(1)
+}
+
 const client = new Discord.Client({
   intents: [1, 512, 32768, 2, 128,
     Discord.IntentsBitField.Flags.DirectMessages,
@@ -25,7 +30,8 @@ const client = new Discord.Client({
   ]
 });
 
-module.exports = client
+
+client.slashCommands = new Discord.Collection()
 
 
 client.on('interactionCreate', async (interaction) => {
@@ -72,19 +78,21 @@ client.on('interactionCreate', async (interaction) => {
 
 })
 
-client.slashCommands = new Discord.Collection()
 
 require('./handler')(client)
 
 client.login(process.env.TOKEN)
-
 client.on('error', console.error)
 process.on('unhandledRejection', console.error)
 
-const fs = require('fs');
 
 fs.readdir('./events', (err, file) => {
   file.forEach(event => {
     require(`./events/${event}`)
   })
 })
+
+module.exports = {
+  client,
+  env: _env
+}

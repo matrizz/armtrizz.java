@@ -1,4 +1,4 @@
-const client = require('../index')
+const { client } = require('../index')
 
 const monitoredUsers = [process.env.UNTOUCHABLE_USER_1, process.env.UNTOUCHABLE_USER_2]
 

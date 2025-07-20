@@ -1,7 +1,7 @@
 require('../index')
 
 const Discord = require('discord.js')
-const client = require('../index')
+const { client } = require('../index')
 
 client.on("guildMemberAdd", (member) => {
   let canal_logs = process.env.JOIN_CHANNEL;

@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
-const DONO = process.env.OWNER_ID;
+const { env } = require('../../index')
+
+const DONO = env.OWNER_ID;
 
 module.exports = {
     name: "setstatus",
@@ -37,20 +39,20 @@ module.exports = {
             });
 
             let embed = new Discord.EmbedBuilder()
-            .setColor("Green")
-            .setTitle("Status atualizado!")
-            .addFields(
-                {
-                    name: `🔮 Mudei meu status para:`,
-                    value: `\`${status}\`.`,
-                    inline: false
-                },
-                {
-                    name: `📝 Mudei minha descrição para:`,
-                    value: `\`${desc}\`.`,
-                    inline: false
-                }
-            )
+                .setColor("Green")
+                .setTitle("Status atualizado!")
+                .addFields(
+                    {
+                        name: `🔮 Mudei meu status para:`,
+                        value: `\`${status}\`.`,
+                        inline: false
+                    },
+                    {
+                        name: `📝 Mudei minha descrição para:`,
+                        value: `\`${desc}\`.`,
+                        inline: false
+                    }
+                )
 
             await interaction.reply({ embeds: [embed] });
 

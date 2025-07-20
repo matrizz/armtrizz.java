@@ -1,7 +1,7 @@
 require('../index')
 
 const Discord = require('discord.js')
-const client = require('../index')
+const { client } = require('../index')
 const db = require('../lib/utils/db');
 
 client.on('messageCreate', async (message) => {

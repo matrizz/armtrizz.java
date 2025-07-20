@@ -1,7 +1,7 @@
 require('../index')
 
 const Discord = require('discord.js')
-const client = require('../index')
+const { client } = require('../index')
 
 client.on("guildMemberAdd", (member) => {
   let cargo_autorole = process.env.AUTO_ROLE
