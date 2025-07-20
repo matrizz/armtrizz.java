@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --trace-deprecation --watch index.js"
+    "dev": "node --trace-deprecation --watch index.js",
+    "start": "node --trace-deprecation --trace-warnings index.js"
   },
   "author": "",
   "license": "ISC",
