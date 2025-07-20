@@ -1,9 +1,11 @@
 #!/bin/sh
 
-mkdir -p ./db
+echo "🚀 Iniciando o bot com PM2..."
 
-touch ./db/database.json
+pm2 start index.js --name matrizz.java || { echo "❌ Falha ao iniciar o bot."; exit 1; }
 
-pnpm i
+pm2 save
 
-pm2 start index.js --name matrizz.java
+pm2 startup | tail -n 1 | bash
+
+echo "✅ Bot iniciado com sucesso e configurado para iniciar no boot!"

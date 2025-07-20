@@ -1,9 +1,12 @@
 #!/bin/sh
 
-pm2 stop matrizz.java
+echo "🔄 Atualizando repositório..."
+git pull origin main || { echo "❌ Falha ao atualizar repositório."; exit 1; }
 
-git pull
+echo "📦 Instalando dependências..."
+pnpm install || { echo "❌ Falha ao instalar dependências."; exit 1; }
 
-pnpm i
+echo "♻️ Reiniciando o bot com PM2..."
+pm2 restart bot || { echo "❌ Falha ao reiniciar o bot com PM2."; exit 1; }
 
-pm2 start index.js --name matrizz.java
+echo "✅ Bot atualizado e reiniciado com sucesso!"
