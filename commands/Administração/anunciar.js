@@ -39,11 +39,22 @@ module.exports = {
 
     run: async (client, interaction) => {
 
+        function parseFieldsFromCustom(desc) {
+            return desc.split("|").map(pair => {
+                const [name, value] = pair.split(":");
+                return {
+                    name: value?.trim() || "\u200B",
+                    value: "\u200B",
+                    inline: false
+                };
+            });
+        }
+
         if (!interaction.member.permissions.has(Discord.PermissionFlagsBits.ManageGuild)) {
             interaction.reply({ content: `Você não possui permissão para utilizar este comando.`, flags: Discord.MessageFlags.Ephemeral })
         } else {
             let titulo = interaction.options.getString("título")
-            let desc = interaction.options.getString("descrição")
+            let desc = interaction.options.getString("descrição").replace(/\\n/g, '\n')
             let imagem = interaction.options.getAttachment("imagem")
             let cor = interaction.options.getString("cor")
             if (!cor) cor = "Random"
@@ -52,8 +63,8 @@ module.exports = {
 
             let embed = new Discord.EmbedBuilder()
                 .setTitle(titulo)
-                .setDescription(desc)
-                .setColor(cor);
+                .setColor(cor)
+                .setDescription(desc);
 
             let files;
             if (imagem) {

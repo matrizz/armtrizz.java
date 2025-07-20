@@ -75,6 +75,32 @@ client.on('interactionCreate', async (interaction) => {
     await member.ban({ reason: 'Ban permanente via report' });
     interaction.reply({ ephemeral: true, content: `Usuário banido permanentemente.` });
   }
+  if (!interaction.isModalSubmit()) return;
+
+  if (interaction.customId.startsWith("modal_anunciar")) {
+    const [_, canalId, titulo, cor, imagemUrl, imagemNome] = interaction.customId.split(":");
+    const descricao = interaction.fields.getTextInputValue("descricao");
+    const canal = await interaction.guild.channels.fetch(canalId);
+
+    const embed = new Discord.EmbedBuilder()
+      .setTitle(titulo)
+      .setDescription(descricao)
+      .setColor(cor);
+
+    const files = [];
+    if (imagemUrl !== 'null') {
+      const file = new Discord.AttachmentBuilder(imagemUrl, { name: imagemNome });
+      files.push(file);
+      embed.setImage(`attachment://${imagemNome}`);
+    }
+
+    try {
+      await canal.send({ content: "||@everyone||", embeds: [embed], files });
+      await interaction.reply({ content: `✅ Seu anúncio foi enviado em ${canal} com sucesso.`, ephemeral: true });
+    } catch (err) {
+      await interaction.reply({ content: `❌ Ocorreu um erro ao tentar enviar a mensagem.`, ephemeral: true });
+    }
+  }
 
 })
 
