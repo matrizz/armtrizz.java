@@ -5,7 +5,7 @@ const fs = require('fs');
 const _env = envSchema.parse(process.env)
 
 if (!_env) {
-  console.error("❌ Variáveis de ambiente inválidas:", _env.error.format())
+  console.error("Variáveis de ambiente inválidas:", _env.error.format())
   process.exit(1)
 }
 

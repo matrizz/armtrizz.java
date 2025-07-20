@@ -10,6 +10,9 @@ const envSchema = z.object({
 
     // Secret
     TOKEN: z.string(),
+
+    // Gemini API
+    GEMINI_API_KEY: z.string(),
     
     // Config
     OWNER_ID: z.string().regex(regex),
