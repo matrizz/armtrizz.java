@@ -70,6 +70,35 @@ async function checkAnimes() {
     }
 }
 
+async function fetchAnimeInfo(id) {
+    const query = `
+    query ($id: Int) {
+      Media(id: $id, type: ANIME) {
+        id
+        title {
+          romaji
+          english
+          native
+        }
+        nextAiringEpisode {
+          episode
+          airingAt
+        }
+        coverImage {
+          large
+        }
+      }
+    }
+  `;
+
+    const variables = { id };
+
+    const response = await axios.post('https://graphql.anilist.co', { query, variables });
+    const data = response.data
+    return data.data.Media;
+}
+
 module.exports = {
-    checkAnimes
+    checkAnimes,
+    fetchAnimeInfo
 }
