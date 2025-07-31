@@ -80,7 +80,11 @@ module.exports = {
                 files = [file];
                 embed.setImage(`attachment://${imagem.name}`);
             }
-            embeded ? chat.send({ embeds: [embed], content: `||@everyone||`, files }) :
+            embeded ? chat.send({ embeds: [embed], content: `||@everyone||`, files }).then(() => {
+                interaction.reply(`✅ Seu anúncio foi enviado em ${chat} com sucesso.`)
+            }).catch((e) => {
+                interaction.reply(`Algo deu errado.`)
+            }) :
                 chat.send({ content: `||@everyone||\n\n${desc}`, files }).then(() => {
                     interaction.reply(`✅ Seu anúncio foi enviado em ${chat} com sucesso.`)
                 }).catch((e) => {
