@@ -31,7 +31,7 @@ module.exports = {
         await interaction.deferReply();
 
         const animes = adb.get('animes') || []
-        const links = adb.get('links')
+        const links = adb.get('links') || {}
 
         let id = interaction.options.getInteger("id")
         let chat = interaction.options.getChannel("chat").id
