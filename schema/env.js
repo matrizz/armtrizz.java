@@ -24,6 +24,7 @@ const envSchema = z.object({
     // Roles
     STAFF_ROLE: z.string().regex(regex, 'Role ID inválido'),
     AUTO_ROLE: z.string().regex(regex, 'Role ID inválido'),
+    ANIME_TRACK_ROLE: z.string().regex(regex, 'Role ID invildo'),
     REGISTERED_ROLE: z.string().regex(regex, 'Role ID inválido'),
     MORE_THAN_18_ROLE: z.string().regex(regex, 'Role ID inválido'),
     LESS_THAN_18_ROLE: z.string().regex(regex, 'Role ID inválido'),

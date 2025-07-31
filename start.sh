@@ -2,13 +2,17 @@
 
 echo "🚀 Iniciando o bot com PM2..."
 
+echo "Criando pastas..."
+
 mkdir db
 
-echo "Criando pastas..."
+echo "Criando arquivo de banco de dados..."
 
 touch db/database.json
 
-echo "Criando arquivo de banco de dados..."
+touch db/anitrack.json
+
+echo "Iniciando o bot..."
 
 pm2 start index.js --name matrizz.java || { echo "❌ Falha ao iniciar o bot."; exit 1; }
 
