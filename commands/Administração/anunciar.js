@@ -24,6 +24,12 @@ module.exports = {
             required: true,
         },
         {
+            name: "embeded",
+            description: "Coloque um embed.",
+            type: Discord.ApplicationCommandOptionType.Boolean,
+            required: false,
+        },
+        {
             name: "imagem",
             description: "Coloque uma imagem.",
             type: Discord.ApplicationCommandOptionType.Attachment,
@@ -50,6 +56,8 @@ module.exports = {
             });
         }
 
+        const embeded = interaction.options.getBoolean("embeded") || true
+
         if (!interaction.member.permissions.has(Discord.PermissionFlagsBits.ManageGuild)) {
             interaction.reply({ content: `Você não possui permissão para utilizar este comando.`, flags: Discord.MessageFlags.Ephemeral })
         } else {
@@ -59,7 +67,7 @@ module.exports = {
             let cor = interaction.options.getString("cor")
             if (!cor) cor = "Random"
             let chat = interaction.options.getChannel("chat")
-            if (Discord.ChannelType.GuildText !== chat.type) return interaction.reply(`❌ Este canal não é um canal de texto para enviar uma mensagem.`)
+            if (Discord.ChannelType.GuildText !== chat.type) return interaction.reply(`Este canal não é um canal de texto para enviar uma mensagem.`)
 
             let embed = new Discord.EmbedBuilder()
                 .setTitle(titulo)
@@ -72,11 +80,12 @@ module.exports = {
                 files = [file];
                 embed.setImage(`attachment://${imagem.name}`);
             }
-            chat.send({ embeds: [embed], content: `||@everyone||`, files }).then(() => {
-                interaction.reply(`✅ Seu anúncio foi enviado em ${chat} com sucesso.`)
-            }).catch((e) => {
-                interaction.reply(`❌ Algo deu errado.`)
-            })
+            embeded ? chat.send({ embeds: [embed], content: `||@everyone||`, files }) :
+                chat.send({ content: `||@everyone||\n\n${desc}`, files }).then(() => {
+                    interaction.reply(`✅ Seu anúncio foi enviado em ${chat} com sucesso.`)
+                }).catch((e) => {
+                    interaction.reply(`Algo deu errado.`)
+                })
         }
 
     }
